@@ -13,22 +13,32 @@ import { API_BASE, isApiReachable, markApiOffline, isFetchNetworkError } from '.
 
 const VISION_BASE = 'http://localhost:8001';
 <<<<<<< HEAD
+const CAMERA_MODE_STORAGE_KEY = 'choco_camera_mode';
+type CameraMode = 'internal' | 'external' | 'off';
+=======
+<<<<<<< HEAD
 =======
 const CAMERA_MODE_STORAGE_KEY = 'choco_camera_mode';
 type CameraMode = 'internal' | 'external' | 'off';
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 
 export function Camera() {
   const [isCameraOn, setIsCameraOn] = useState(false);
   const [cameraOk, setCameraOk] = useState(false);
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
   const [cameraType, setCameraType] = useState<'usb' | 'laptop' | 'unknown'>('unknown');
 =======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   const [lastError, setLastError] = useState<string | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [recentDetections, setRecentDetections] = useState<any[]>([]);
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
   const [cameraAvailable, setCameraAvailable] = useState<boolean | null>(null);
 
@@ -65,6 +75,7 @@ export function Camera() {
       navigator.mediaDevices.removeEventListener('devicechange', detectCamera);
     };
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   const [selectedCameraMode, setSelectedCameraMode] = useState<CameraMode>('external');
   const [isApplyingCameraMode, setIsApplyingCameraMode] = useState(false);
 
@@ -178,7 +189,10 @@ export function Camera() {
     };
 
     autoStartCamera();
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   }, []);
 
   useEffect(() => {
@@ -222,6 +236,8 @@ export function Camera() {
 
   const toggleCamera = async () => {
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
     const wantOn = !isCameraOn;
     setIsCameraOn(wantOn);
     try {
@@ -239,6 +255,7 @@ export function Camera() {
       setIsCameraOn(!wantOn);
       setLastError('Vision service unreachable on port 8001');
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     // Camera is now auto-managed by backend
     // This function kept for emergency manual control if needed
     const wantOn = !isCameraOn;
@@ -311,7 +328,10 @@ export function Camera() {
       toast.success('Recording started');
     } else {
       toast.success('Recording saved');
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     }
   };
 
@@ -344,12 +364,17 @@ export function Camera() {
               <div className="absolute inset-0 flex flex-col items-center justify-center text-text-secondary bg-black/90">
                 <CameraIcon size={48} className="mb-4 opacity-50" />
 <<<<<<< HEAD
+                <p className="text-xl font-medium">Camera Starting...</p>
+                <p className="text-sm opacity-75">Waiting for external USB camera</p>
+=======
+<<<<<<< HEAD
                 <p className="text-xl font-medium">Camera Offline</p>
                 <p className="text-sm opacity-75">Enable the master switch to start the feed</p>
 =======
                 <p className="text-xl font-medium">Camera Starting...</p>
                 <p className="text-sm opacity-75">Waiting for external USB camera</p>
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
               </div>
             )}
 
@@ -372,6 +397,9 @@ export function Camera() {
                 </span>
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
                 {isCameraOn && cameraOk && (
                   <span className="text-sm text-green-300 bg-black/40 px-3 py-1 rounded ml-3 font-medium">
                     {selectedCameraMode === 'internal'
@@ -379,7 +407,10 @@ export function Camera() {
                       : 'External Camera Active (Index 1)'}
                   </span>
                 )}
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
               </div>
               <div className="flex gap-3 text-white/80 font-mono text-xs bg-black/40 px-3 py-1.5 rounded backdrop-blur-sm border border-white/10">
                 <span>{cameraOk ? '640×480' : 'No signal'}</span>
@@ -414,9 +445,12 @@ export function Camera() {
                 <button
                   type="button"
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
                   className="p-2 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 backdrop-blur-md transition-colors opacity-50 cursor-not-allowed"
                   title="Snapshot coming soon"
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
                   className={`p-2 rounded-full backdrop-blur-md border transition-colors ${isCameraOn ? 'bg-status-success/20 border-status-success text-status-success' : 'bg-white/10 border-white/20 text-white hover:bg-white/20'}`}
                   onClick={toggleCamera}
                   title={isCameraOn ? 'Stop camera' : 'Start camera'}
@@ -428,7 +462,10 @@ export function Camera() {
                   className="p-2 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 backdrop-blur-md transition-colors"
                   title="Take screenshot"
                   onClick={takeScreenshot}
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
                 >
                   <ImageIcon size={20} />
                 </button>
@@ -445,6 +482,9 @@ export function Camera() {
 
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
           <div className="mt-4 rounded-3xl border border-border bg-surface p-4">
             <div className="flex flex-wrap gap-2">
               {(
@@ -471,7 +511,10 @@ export function Camera() {
             </div>
           </div>
 
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
           <Card>
             <h3 className="font-semibold text-text-primary mb-4 flex items-center gap-2">
               <Settings2 size={18} className="text-primary" />
@@ -508,6 +551,8 @@ export function Camera() {
         </div>
 
         <div className="space-y-6">
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
           <Card>
             <h3 className="font-semibold text-text-primary mb-4 flex items-center gap-2">
@@ -562,6 +607,7 @@ export function Camera() {
           </Card>
 =======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
         </div>
       </div>
     </div>

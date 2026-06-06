@@ -10,6 +10,9 @@ import { db, testConnection } from './db';
 
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 declare global {
   namespace Express {
     interface Response {
@@ -18,13 +21,19 @@ declare global {
   }
 }
 
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 const ESP32_HOST = process.env.ESP32_HOST || 'http://10.174.204.136';
 const ESP32_TIMEOUT_MS = 4000;
 const RETRIEVE_TASK_TYPES = new Set(['Retrieve', 'Pick']);
@@ -59,8 +68,11 @@ async function sendEsp32RetrieveCommand(color: string): Promise<boolean> {
     clearTimeout(timeout);
   }
 }
+<<<<<<< HEAD
+=======
 
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 // Request logging middleware
 app.use((req, res, next) => {
   const start = Date.now();
@@ -85,18 +97,24 @@ app.use((req, res, next) => {
 });
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 type AuthUser = {
   id: number;
   email: string;
   role: 'admin' | 'operator' | string;
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 type UserRole = 'warehouse_staff' | 'warehouse_supervisor' | 'maintenance_staff';
 
 type AuthUser = {
   id: number;
   email: string;
   role: UserRole;
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 };
 
 type AuthRequest = Request & {
@@ -106,6 +124,9 @@ type AuthRequest = Request & {
 
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 // ============================================================================
 // ROLE-BASED ACCESS CONTROL (RBAC) CONFIGURATION
 // ============================================================================
@@ -183,8 +204,11 @@ function requirePermission(permission: Permission) {
     next();
   };
 }
+<<<<<<< HEAD
+=======
 
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 function authenticateToken(req: AuthRequest, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
   const token = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : null;
@@ -234,12 +258,15 @@ app.get('/api/health', async (req, res) => {
 // Vision service availability check
 async function checkVisionService(): Promise<boolean> {
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
   try {
     const response = await fetch('http://localhost:8001/health', { timeout: 2000 });
     return response.ok;
   } catch {
     return false;
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 2000);
   try {
@@ -249,7 +276,10 @@ async function checkVisionService(): Promise<boolean> {
     return false;
   } finally {
     clearTimeout(timeout);
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   }
 }
 
@@ -259,46 +289,64 @@ async function checkVisionService(): Promise<boolean> {
 app.post('/api/auth/login', async (req, res) => {
   const { email, password } = req.body;
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
   const normalizedEmail = (email || '').trim().toLowerCase();
 
   if (!normalizedEmail || !password) {
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   console.log('[Auth] Login attempt:', { email, passwordLength: password?.length || 0 });
   const normalizedEmail = (email || '').trim().toLowerCase();
 
   if (!normalizedEmail || !password) {
     console.log('[Auth] Missing email or password');
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     return res.sendError(400, 'Email and password are required.');
   }
 
   try {
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
     const [users]: any = await db.query('SELECT * FROM users WHERE email = ? LIMIT 1', [normalizedEmail]);
     if (!users || users.length === 0) {
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     console.log('[Auth] Querying user:', normalizedEmail);
     const [users]: any = await db.query('SELECT * FROM users WHERE email = ? LIMIT 1', [normalizedEmail]);
     console.log('[Auth] Query result:', { found: users?.length > 0, count: users?.length });
     
     if (!users || users.length === 0) {
       console.log('[Auth] User not found');
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
       return res.sendError(401, 'Invalid email or password');
     }
 
     const user = users[0];
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
     const isPasswordValid = await bcrypt.compare(password, user.password_hash);
     if (!isPasswordValid) {
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     console.log('[Auth] Validating password for user:', user.email);
     const isPasswordValid = await bcrypt.compare(password, user.password_hash);
     console.log('[Auth] Password valid:', isPasswordValid);
     
     if (!isPasswordValid) {
       console.log('[Auth] Invalid password');
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
       return res.sendError(401, 'Invalid email or password');
     }
 
@@ -315,9 +363,13 @@ app.post('/api/auth/login', async (req, res) => {
     );
 
 <<<<<<< HEAD
+    console.log('[Auth] Login successful for:', user.email);
+=======
+<<<<<<< HEAD
 =======
     console.log('[Auth] Login successful for:', user.email);
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     res.json({
       success: true,
       token,
@@ -325,9 +377,13 @@ app.post('/api/auth/login', async (req, res) => {
     });
   } catch (error) {
 <<<<<<< HEAD
+    console.error('[Auth] Login error:', error);
+=======
+<<<<<<< HEAD
 =======
     console.error('[Auth] Login error:', error);
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     res.sendError(500, 'Login failed', error);
   }
 });
@@ -395,6 +451,22 @@ app.get('/api/inventory', async (req, res) => {
 });
 
 <<<<<<< HEAD
+app.post('/api/inventory/add', async (req, res) => {
+  const { name, sku, category, quantity, location } = req.body;
+  if (!name || !sku || !category) return res.status(400).json({ success: false, error: 'Name, SKU, and Category are required' });
+  try {
+    const [existing]: any = await db.query('SELECT id FROM inventory_items WHERE sku = ? LIMIT 1', [sku]);
+    if (existing && existing.length > 0) return res.status(409).json({ success: false, error: 'Product with this SKU already exists' });
+    const initialStatus = quantity === 0 ? 'Out of Stock' : quantity <= 200 ? 'Low Stock' : 'In Stock';
+    const [result]: any = await db.query(
+      `INSERT INTO inventory_items (name, sku, category, quantity, capacity, location, status, created_at, updated_at) VALUES (?, ?, ?, ?, 1000, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`,
+      [name, sku, category, quantity || 0, location || 'Unknown', initialStatus]
+    );
+    res.json({ success: true, message: 'Product added successfully', productId: result.insertId });
+  } catch (error) {
+    if ((error as any).code === 'ER_DUP_ENTRY') return res.status(409).json({ success: false, error: 'Product with this SKU already exists' });
+=======
+<<<<<<< HEAD
 =======
 app.post('/api/inventory/add', async (req, res) => {
   const { name, sku, category, quantity, location } = req.body;
@@ -430,10 +502,33 @@ app.post('/api/inventory/add', async (req, res) => {
     if ((error as any).code === 'ER_DUP_ENTRY') {
       return res.status(409).json({ success: false, error: 'Product with this SKU already exists' });
     }
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     res.status(500).json({ success: false, error: 'Failed to add product' });
   }
 });
 
+<<<<<<< HEAD
+app.post('/api/inventory/update-from-vision', async (req, res) => {
+  const { item, color, action, timestamp, event_id, source } = req.body;
+  try {
+    const detectedAt = timestamp && !Number.isNaN(new Date(timestamp).getTime()) ? formatToMySQL(new Date(timestamp)) : formatToMySQL(new Date());
+    await db.query(`INSERT INTO vision_detections (item, color, action, event_id, source, detected_at) VALUES (?, ?, ?, ?, ?, ?)`, [item, color, action || 'pick', event_id, source || 'vision', detectedAt]);
+    let itemSku = color === 'blue' ? 'CHOC-MILK-01' : color === 'red' ? 'CHOC-DARK-01' : color === 'green' ? 'CHOC-WHT-01' : '';
+    if (itemSku) {
+      const [items]: any = await db.query('SELECT id, quantity FROM inventory_items WHERE sku = ? LIMIT 1', [itemSku]);
+      if (items && items.length > 0) {
+        const itemId = items[0].id;
+        await db.query(`UPDATE inventory_items SET quantity = quantity + 1, status = CASE WHEN quantity + 1 <= 0 THEN 'Out of Stock' WHEN quantity + 1 <= 200 THEN 'Low Stock' ELSE 'In Stock' END, updated_at = CURRENT_TIMESTAMP WHERE id = ?`, [itemId]);
+        const desc = `Picked and sorted ${item || 'chocolate'} via vision system`;
+        const duration = `${Math.floor(Math.random() * 5) + 5}s`;
+        const [taskInsert]: any = await db.query(`INSERT INTO tasks (task_type, description, item_id, quantity, status, progress, robot_id, operator, source, completed_at, confidence) VALUES ('Pick', ?, ?, 1, 'Success', 100, 'RBT-01', 'AI', 'vision', CURRENT_TIMESTAMP, ?)`, [desc, itemId, Math.floor(Math.random() * 5) + 95]);
+        await db.query(`INSERT INTO task_logs (task_id, action, notes) VALUES (?, 'completed', 'Picked via vision system')`, [taskInsert.insertId]);
+      }
+    }
+    res.json({ success: true });
+  } catch (error: any) {
+    if (error.code === 'ER_DUP_ENTRY' || error.code === 'SQLITE_CONSTRAINT') return res.json({ success: true, message: 'Duplicate event ignored' });
+=======
 >>>>>>> fix-camera
 app.post('/api/inventory/update-from-vision', async (req, res) => {
   const { item, color, action, timestamp, event_id, source } = req.body;
@@ -504,10 +599,13 @@ app.post('/api/inventory/update-from-vision', async (req, res) => {
       return res.json({ success: true, message: 'Duplicate event ignored' });
     }
     console.error('Vision update error:', error);
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     res.status(500).json({ error: 'Failed to record vision update' });
   }
 });
 
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
 app.post('/api/tasks', async (req, res) => {
   const { type, description, product, quantity, source } = req.body;
@@ -532,6 +630,7 @@ app.post('/api/tasks', async (req, res) => {
 
     res.json({ success: true, message: 'Task queued successfully' });
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 app.post('/api/tasks', authenticateToken, requirePermission('create_tasks'), async (req, res) => {
   const { type, taskType, description, product, quantity, source } = req.body;
   try {
@@ -565,7 +664,10 @@ app.post('/api/tasks', authenticateToken, requirePermission('create_tasks'), asy
     const taskId = insertResult.insertId ? `T-${insertResult.insertId}` : undefined;
 
     res.json({ success: true, message: 'Task queued successfully', taskId });
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   } catch (error) {
     console.error('Failed to create task:', error);
     res.status(500).json({ error: 'Failed to create task' });
@@ -657,10 +759,14 @@ function formatToMySQL(d: Date): string {
 }
 
 <<<<<<< HEAD
+app.get('/api/dashboard/summary', authenticateToken, async (req: AuthRequest, res) => {
+=======
+<<<<<<< HEAD
 app.get('/api/dashboard/summary', async (req, res) => {
 =======
 app.get('/api/dashboard/summary', authenticateToken, async (req: AuthRequest, res) => {
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   try {
     const [distribution]: any = await db.query('SELECT category as name, SUM(quantity) as value FROM inventory_items GROUP BY category');
     
@@ -1011,12 +1117,18 @@ Reply concisely with clear, actionable information. Use bullet points if listing
 // BACKGROUND TASK WORKER — processes robot tasks every 3 seconds
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 // IMPORTANT: This worker is idempotent - it only processes one task state transition per call
 // to prevent duplicate arm operations and inventory updates
 // Each unit of a retrieve task is processed sequentially to prevent arm duplication
 // To prevent this from repeating, progress tracks which units have been processed
 // Once a unit is processed, progress increments, so the SAME unit is never processed twice
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 // -----------------------------------------------------------------------------
 async function processTaskQueue() {
   try {
@@ -1032,6 +1144,11 @@ async function processTaskQueue() {
       );
       if (queued && queued.length > 0) {
 <<<<<<< HEAD
+        // Mark as active - this is the ONLY state transition that happens per call
+        await db.query(
+          "UPDATE tasks SET status = 'Active', progress = 0, robot_id = 'RBT-01', updated_at = CURRENT_TIMESTAMP WHERE id = ?",
+=======
+<<<<<<< HEAD
         await db.query(
           "UPDATE tasks SET status = 'Active', progress = 0, robot_id = 'RBT-01' WHERE id = ?",
 =======
@@ -1039,29 +1156,40 @@ async function processTaskQueue() {
         await db.query(
           "UPDATE tasks SET status = 'Active', progress = 0, robot_id = 'RBT-01', updated_at = CURRENT_TIMESTAMP WHERE id = ?",
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
           [queued[0].id]
         );
         console.log(`[Worker] Task #${queued[0].id} → Active`);
       }
 <<<<<<< HEAD
+      return; // next tick will process the first unit - prevents duplicate operations
+=======
+<<<<<<< HEAD
       return; // next tick will increment its progress
 =======
       return; // next tick will process the first unit - prevents duplicate operations
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     }
 
     // 2. Increment progress of the active task
     const taskId = active[0].id;
     const [taskRow]: any = await db.query(
 <<<<<<< HEAD
+      "SELECT progress, quantity, item_id, task_type FROM tasks WHERE id = ?",
+=======
+<<<<<<< HEAD
       "SELECT progress, quantity, item_id FROM tasks WHERE id = ?",
 =======
       "SELECT progress, quantity, item_id, task_type FROM tasks WHERE id = ?",
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
       [taskId]
     );
     if (!taskRow || taskRow.length === 0) return;
 
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
     const currentProgress = taskRow[0].progress || 0;
     const newProgress = Math.min(100, currentProgress + 20);
@@ -1069,6 +1197,7 @@ async function processTaskQueue() {
     if (newProgress >= 100) {
       // Mark complete
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     const row = taskRow[0];
     const currentProgress = row.progress || 0;
     const quantity = row.quantity || 1;
@@ -1170,7 +1299,10 @@ async function processTaskQueue() {
     const newProgress = Math.min(100, currentProgress + 20);
 
     if (newProgress >= 100) {
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
       const duration = `${Math.floor(Math.random() * 12) + 8}s`;
       await db.query(
         `UPDATE tasks SET status = 'Success', progress = 100, duration = ?, confidence = ?, completed_at = CURRENT_TIMESTAMP WHERE id = ?`,
@@ -1178,6 +1310,8 @@ async function processTaskQueue() {
       );
       console.log(`[Worker] Task #${taskId} → Success (${duration})`);
 
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
       // Decrement inventory for the item associated with this task
       if (taskRow[0].item_id) {
@@ -1189,6 +1323,7 @@ async function processTaskQueue() {
                  WHEN GREATEST(0, quantity - ?) <= 0 THEN 'Out of Stock' 
                  WHEN GREATEST(0, quantity - ?) <= 200 THEN 'Low Stock' 
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
       if (isStore) {
         if (row.item_id) {
           const qty = quantity;
@@ -1198,23 +1333,32 @@ async function processTaskQueue() {
                status = CASE 
                  WHEN quantity + ? <= 0 THEN 'Out of Stock' 
                  WHEN quantity + ? <= 200 THEN 'Low Stock' 
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
                  ELSE 'In Stock' 
                END,
                updated_at = CURRENT_TIMESTAMP
            WHERE id = ?`,
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
           [qty, qty, qty, taskRow[0].item_id]
         );
         console.log(`[Worker] Inventory item ${taskRow[0].item_id} decremented by ${qty}`);
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
           [qty, qty, qty, row.item_id]
         );
         console.log(`[Worker] Inventory item ${row.item_id} incremented by ${qty}`);
         } else {
           console.warn(`[Worker] Store task #${taskId} completed without inventory item_id; no stock update applied.`);
         }
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
       }
     } else {
       await db.query(
@@ -1259,7 +1403,136 @@ const startServer = async () => {
 
   // Start background task worker
   workerInterval = setInterval(processTaskQueue, 3000);
+<<<<<<< HEAD
+}
+
+// -----------------------------------------------------------------------------
+// ANALYTICS ENDPOINT
+// -----------------------------------------------------------------------------
+app.get('/api/analytics', authenticateToken, async (req: AuthRequest, res) => {
+  try {
+    const range = (req.query.range as string) || 'today';
+    
+    // Determine date range
+    let dateFilter = 'CURDATE()';
+    let dateRangeText = 'Today';
+    
+    if (range === '7d') {
+      dateFilter = 'DATE_SUB(CURDATE(), INTERVAL 7 DAY)';
+      dateRangeText = 'Last 7 Days';
+    } else if (range === '30d') {
+      dateFilter = 'DATE_SUB(CURDATE(), INTERVAL 30 DAY)';
+      dateRangeText = 'Last 30 Days';
+    }
+
+    // --- Summary Stats ---
+    const [tasksCompletedRows]: any = await db.query(`
+      SELECT COUNT(*) as count FROM tasks 
+      WHERE status = 'Success' AND completed_at >= ${dateFilter}
+    `);
+    
+    const [itemsSortedRows]: any = await db.query(`
+      SELECT COUNT(*) as count FROM vision_detections 
+      WHERE detected_at >= ${dateFilter}
+    `);
+    
+    const [taskStatsRows]: any = await db.query(`
+      SELECT 
+        COUNT(*) as totalTasks,
+        SUM(CASE WHEN status = 'Success' THEN 1 ELSE 0 END) as successTasks
+      FROM tasks
+      WHERE status IN ('Success', 'Failed') AND created_at >= ${dateFilter}
+    `);
+    
+    const total = taskStatsRows[0]?.totalTasks || 0;
+    const success = taskStatsRows[0]?.successTasks || 0;
+    const successRate = total > 0 ? Math.round((success / total) * 100) : 100;
+    const failureRate = total > 0 ? Math.round(((total - success) / total) * 100) : 0;
+    
+    const [topProductRows]: any = await db.query(`
+      SELECT item, COUNT(*) as cnt FROM vision_detections
+      WHERE detected_at >= ${dateFilter}
+      GROUP BY item ORDER BY cnt DESC LIMIT 1
+    `);
+    const topProduct = topProductRows[0]?.item || 'N/A';
+    
+    const [peakRows]: any = await db.query(`
+      SELECT HOUR(detected_at) as hr, COUNT(*) as cnt FROM vision_detections
+      WHERE detected_at >= ${dateFilter}
+      GROUP BY HOUR(detected_at) ORDER BY cnt DESC LIMIT 1
+    `);
+    const peakHour = peakRows[0]?.hr != null 
+      ? `${String(peakRows[0].hr).padStart(2, '0')}:00` 
+      : 'N/A';
+
+    // --- Charts ---
+    // Throughput Trend
+    const [throughputRows]: any = await db.query(`
+      SELECT 
+        DATE_FORMAT(detected_at, '%H:00') as time,
+        COUNT(*) as value
+      FROM vision_detections
+      WHERE detected_at >= ${dateFilter}
+      GROUP BY HOUR(detected_at)
+      ORDER BY HOUR(detected_at)
+    `);
+    
+    // Tasks by Type
+    const [taskTypeRows]: any = await db.query(`
+      SELECT task_type as name, COUNT(*) as value
+      FROM tasks
+      WHERE created_at >= ${dateFilter}
+      GROUP BY task_type
+    `);
+    
+    // Inventory Distribution
+    const [distributionRows]: any = await db.query(`
+      SELECT category as name, SUM(quantity) as value 
+      FROM inventory_items 
+      GROUP BY category
+    `);
+
+    // --- Insights ---
+    const insights: string[] = [];
+    if (itemsSortedRows[0]?.count > 0) {
+      insights.push(`Processed ${itemsSortedRows[0].count} items during this period.`);
+    }
+    if (topProduct !== 'N/A') {
+      insights.push(`${topProduct} was the most handled item.`);
+    }
+    if (failureRate > 5) {
+      insights.push(`Error rate is at ${failureRate}%, consider reviewing failed tasks.`);
+    }
+
+    res.json({
+      success: true,
+      range,
+      dateRange: dateRangeText,
+      summary: {
+        tasksCompleted: tasksCompletedRows[0]?.count || 0,
+        itemsSorted: itemsSortedRows[0]?.count || 0,
+        topProduct,
+        peakHour,
+        successRate,
+        failureRate,
+        totalTasks: total
+      },
+      charts: {
+        throughputData: throughputRows,
+        tasksByType: taskTypeRows,
+        inventoryDistribution: distributionRows
+      },
+      insights: insights.length > 0 ? insights : ['No significant insights available for this period.']
+    });
+  } catch (error) {
+    console.error('Analytics error:', error);
+    res.sendError(500, 'Failed to fetch analytics data');
+  }
+});
+
+=======
 };
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 
 // Graceful shutdown
 const gracefulShutdown = async () => {

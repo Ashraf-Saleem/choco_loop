@@ -1,6 +1,9 @@
 import { API_BASE } from './api';
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 import { 
   processNLP, 
   generateVoiceFeedback, 
@@ -8,11 +11,17 @@ import {
   type NLPResult,
   type Product
 } from './nlpEngine';
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 
 const VISION_BASE = 'http://localhost:8001';
 
 export interface ParsedCommand {
+<<<<<<< HEAD
+  intent: string;
+=======
   intent:
     | 'pick'
     | 'sort'
@@ -34,6 +43,7 @@ export interface ParsedCommand {
     | 'system_status'
     | 'active_tasks'
     | 'unknown';
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   product?: string;
   destination?: string;
   quantity?: number;
@@ -48,6 +58,8 @@ export interface CommandResult {
   toast: { type: 'success' | 'info' | 'error'; message: string };
 }
 
+<<<<<<< HEAD
+=======
 const CHOCOLATE_TYPES = [
   { match: ['dark', 'dark chocolate'], label: 'Dark Chocolate' },
   { match: ['milk', 'milk chocolate'], label: 'Milk Chocolate' },
@@ -165,12 +177,15 @@ export function parseCommandIntent(rawText: string): ParsedCommand {
   };
 }
 
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 async function fetchInventory(): Promise<any[]> {
   const res = await fetch(`${API_BASE}/inventory`);
   if (!res.ok) throw new Error('Inventory unavailable');
   return res.json();
 }
 
+<<<<<<< HEAD
+=======
 async function fetchActiveTasks(): Promise<any[]> {
   const res = await fetch(`${API_BASE}/tasks/active`);
   if (!res.ok) throw new Error('Tasks unavailable');
@@ -199,16 +214,22 @@ function findInventoryItem(items: any[], product?: string): any | undefined {
 }
 
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 async function postTask(
   type: string,
   description: string,
   product?: string,
+<<<<<<< HEAD
+  quantity?: number,
+  taskType?: string
+=======
 <<<<<<< HEAD
   quantity?: number
 =======
   quantity?: number,
   taskType?: string
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 ): Promise<string | undefined> {
   const res = await fetch(`${API_BASE}/tasks`, {
     method: 'POST',
@@ -216,9 +237,13 @@ async function postTask(
     body: JSON.stringify({
       type,
 <<<<<<< HEAD
+      taskType: taskType || type,
+=======
+<<<<<<< HEAD
 =======
       taskType: taskType || type,
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
       description,
       product,
       quantity: quantity ?? 12,
@@ -238,6 +263,8 @@ async function visionCamera(on: boolean): Promise<void> {
   }
 }
 
+<<<<<<< HEAD
+=======
 function formatInventorySummary(items: any[]): string {
   if (items.length === 0) return 'No inventory records found.';
   const lines = items
@@ -432,14 +459,40 @@ export function parseCommand(rawText: string): CommandResult {
 <<<<<<< HEAD
 =======
 
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 /**
  * Enhanced NLP-based voice command execution
  * Uses processNLP for flexible natural language understanding
  */
+<<<<<<< HEAD
+export async function executeVoiceCommand(rawText: string): Promise<CommandResult> {
+  return executeNLPCommand(rawText);
+}
+
+/** @deprecated Use executeVoiceCommand */
+export function parseCommandIntent(rawText: string): ParsedCommand {
+  return { intent: 'unknown', rawText };
+}
+
+/**
+ * Core command execution using NLP
+ */
+export async function executeNLPCommand(rawText: string): Promise<CommandResult> {
+  try {
+    // Fetch available products for fuzzy matching
+    let inventoryData: any[] = [];
+    try {
+      inventoryData = await fetchInventory();
+    } catch (e) {
+      console.warn('Inventory fetch failed, proceeding without products', e);
+    }
+    
+=======
 export async function executeNLPCommand(rawText: string): Promise<CommandResult> {
   try {
     // Fetch available products for fuzzy matching
     const inventoryData = await fetchInventory();
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     const products: Product[] = inventoryData.map((item: any) => ({
       id: item.id || item.sku,
       name: item.name,
@@ -459,14 +512,33 @@ export async function executeNLPCommand(rawText: string): Promise<CommandResult>
       errors: nlpResult.validationErrors
     });
 
+<<<<<<< HEAD
+    const baseParsed: ParsedCommand = {
+      intent: nlpResult.intent.toLowerCase(),
+      rawText,
+      product: nlpResult.entities.product,
+      quantity: nlpResult.entities.quantity
+    };
+
+    // Validate NLP result
+    if (nlpResult.validationErrors.length > 0 && nlpResult.intent !== 'UNKNOWN') {
+      return {
+        parsed: baseParsed,
+        reply: `Cannot execute command: ${nlpResult.validationErrors.join(', ')}`,
+        toast: { type: 'error', message: nlpResult.validationErrors[0] || 'Missing information' },
+      };
+=======
     // Validate NLP result
     if (nlpResult.validationErrors.length > 0 && nlpResult.intent !== 'UNKNOWN') {
       console.warn('[Voice] Validation errors:', nlpResult.validationErrors);
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     }
 
     // Execute based on intent
     switch (nlpResult.intent) {
       case 'STORE': {
+<<<<<<< HEAD
+=======
         if (nlpResult.validationErrors.length > 0) {
           return {
             parsed: { intent: 'store', rawText },
@@ -484,6 +556,7 @@ export async function executeNLPCommand(rawText: string): Promise<CommandResult>
         }
 
         // Create store task
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
         const storeTaskId = await postTask(
           'Store',
           `Store ${nlpResult.entities.quantity} ${nlpResult.entities.product}`,
@@ -491,6 +564,11 @@ export async function executeNLPCommand(rawText: string): Promise<CommandResult>
           nlpResult.entities.quantity,
           'Store'
         );
+<<<<<<< HEAD
+        const reply = generateVoiceFeedback(nlpResult, true);
+        return {
+          parsed: baseParsed,
+=======
 
         const reply = generateVoiceFeedback(nlpResult, true);
         return {
@@ -500,6 +578,7 @@ export async function executeNLPCommand(rawText: string): Promise<CommandResult>
             product: nlpResult.entities.product, 
             quantity: nlpResult.entities.quantity 
           },
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
           reply,
           taskId: storeTaskId,
           toast: { type: 'success', message: `Stored ${nlpResult.entities.quantity} ${nlpResult.entities.product}` },
@@ -507,6 +586,8 @@ export async function executeNLPCommand(rawText: string): Promise<CommandResult>
       }
 
       case 'RETRIEVE': {
+<<<<<<< HEAD
+=======
         if (nlpResult.validationErrors.length > 0) {
           return {
             parsed: { intent: 'pick', rawText },
@@ -523,11 +604,18 @@ export async function executeNLPCommand(rawText: string): Promise<CommandResult>
           };
         }
 
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
         // Check availability
         const productMatch = inventoryData.find(
           (item: any) => item.name.toLowerCase() === nlpResult.entities.product?.toLowerCase()
         );
 
+<<<<<<< HEAD
+        if (!productMatch) {
+          const reply = generateVoiceFeedback(nlpResult, false, 'product not found');
+          return {
+            parsed: baseParsed,
+=======
         console.log('[Voice] Product match for retrieve:', {
           requested: nlpResult.entities.product,
           found: productMatch?.name,
@@ -543,30 +631,42 @@ export async function executeNLPCommand(rawText: string): Promise<CommandResult>
               product: nlpResult.entities.product, 
               quantity: nlpResult.entities.quantity 
             },
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
             reply,
             toast: { type: 'error', message: `${nlpResult.entities.product} not found in inventory` },
           };
         }
 
+<<<<<<< HEAD
+        if (productMatch.stock < nlpResult.entities.quantity!) {
+=======
         if (productMatch.stock < nlpResult.entities.quantity) {
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
           const reply = generateVoiceFeedback(
             nlpResult,
             false,
             `insufficient stock - only ${productMatch.stock} available`
           );
           return {
+<<<<<<< HEAD
+            parsed: baseParsed,
+=======
             parsed: { 
               intent: 'pick', 
               rawText, 
               product: nlpResult.entities.product, 
               quantity: nlpResult.entities.quantity 
             },
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
             reply,
             toast: { type: 'error', message: `Insufficient stock. Available: ${productMatch.stock}` },
           };
         }
 
+<<<<<<< HEAD
+=======
         // Create retrieve task
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
         const retrieveTaskId = await postTask(
           'Retrieve',
           `Retrieve ${nlpResult.entities.quantity} ${nlpResult.entities.product}`,
@@ -577,12 +677,16 @@ export async function executeNLPCommand(rawText: string): Promise<CommandResult>
 
         const reply = generateVoiceFeedback(nlpResult, true);
         return {
+<<<<<<< HEAD
+          parsed: baseParsed,
+=======
           parsed: { 
             intent: 'pick', 
             rawText, 
             product: nlpResult.entities.product, 
             quantity: nlpResult.entities.quantity 
           },
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
           reply,
           taskId: retrieveTaskId,
           toast: { type: 'success', message: `Retrieving ${nlpResult.entities.quantity} ${nlpResult.entities.product}` },
@@ -590,48 +694,141 @@ export async function executeNLPCommand(rawText: string): Promise<CommandResult>
       }
 
       case 'INVENTORY_CHECK': {
+<<<<<<< HEAD
+        return {
+          parsed: baseParsed,
+          reply: `Checking inventory...`,
+=======
         const reply = `Checking inventory${nlpResult.entities.product ? ` for ${nlpResult.entities.product}` : ''}...`;
         return {
           parsed: { intent: 'check_inventory', rawText },
           reply,
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
           toast: { type: 'info', message: 'Checking inventory...' },
         };
       }
 
       case 'TASK_STATUS': {
         return {
+<<<<<<< HEAD
+          parsed: baseParsed,
+          reply: 'Displaying tasks...',
+=======
           parsed: { intent: 'active_tasks', rawText },
           reply: 'Displaying active tasks...',
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
           toast: { type: 'info', message: 'Loading tasks...' },
         };
       }
 
       case 'ROBOT_STATUS': {
         return {
+<<<<<<< HEAD
+          parsed: baseParsed,
+          reply: 'Checking system status...',
+          toast: { type: 'info', message: 'Loading status...' },
+        };
+      }
+
+      case 'CAMERA_ON': {
+        await visionCamera(true);
+        return {
+          parsed: baseParsed,
+          reply: generateVoiceFeedback(nlpResult, true),
+          toast: { type: 'success', message: 'Camera started' },
+        };
+      }
+
+      case 'CAMERA_OFF': {
+        await visionCamera(false);
+        return {
+          parsed: baseParsed,
+          reply: generateVoiceFeedback(nlpResult, true),
+          toast: { type: 'success', message: 'Camera stopped' },
+        };
+      }
+
+      case 'CONVEYOR_START': {
+        await postTask('Conveyor', 'Start conveyor belt', undefined, undefined);
+        return {
+          parsed: baseParsed,
+          reply: generateVoiceFeedback(nlpResult, true),
+          toast: { type: 'success', message: 'Conveyor start queued' },
+        };
+      }
+
+      case 'CONVEYOR_STOP': {
+        await postTask('Conveyor', 'Stop conveyor belt', undefined, undefined);
+        return {
+          parsed: baseParsed,
+          reply: generateVoiceFeedback(nlpResult, true),
+          toast: { type: 'success', message: 'Conveyor stop queued' },
+        };
+      }
+
+      case 'PAUSE_ROBOT': {
+        await postTask('Pause', 'Pause robotic arm — operator voice command');
+        return {
+          parsed: baseParsed,
+          reply: generateVoiceFeedback(nlpResult, true),
+          toast: { type: 'info', message: 'Robot pause queued' },
+        };
+      }
+
+      case 'RESUME_ROBOT': {
+        await postTask('Resume', 'Resume robotic arm — operator voice command');
+        return {
+          parsed: baseParsed,
+          reply: generateVoiceFeedback(nlpResult, true),
+          toast: { type: 'success', message: 'Robot resume queued' },
+=======
           parsed: { intent: 'system_status', rawText },
           reply: 'Checking robot status...',
           toast: { type: 'info', message: 'Loading robot status...' },
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
         };
       }
 
       case 'HELP': {
+<<<<<<< HEAD
+        return {
+          parsed: baseParsed,
+          reply: generateVoiceFeedback(nlpResult, true),
+=======
         const reply = generateVoiceFeedback(nlpResult, true);
         return {
           parsed: { intent: 'unknown', rawText },
           reply,
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
           toast: { type: 'info', message: 'Help displayed' },
         };
       }
 
       default: {
         return {
+<<<<<<< HEAD
+          parsed: baseParsed,
+          reply: 'I did not understand that command. Try: "Store 5 Milk Chocolates", "Retrieve 10 Dark Chocolates", or "Camera on"',
+=======
           parsed: { intent: 'unknown', rawText },
           reply: 'I did not understand that command. Try: "Store 5 Milk Chocolates", "Retrieve 10 Dark Chocolates", or "Show inventory"',
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
           toast: { type: 'error', message: 'Command not recognized' },
         };
       }
     }
   } catch (error) {
+<<<<<<< HEAD
+    const msg = error instanceof Error ? error.message : 'Execution error';
+    console.error('[Voice] Error executing NLP command:', error);
+    return {
+      parsed: { intent: 'unknown', rawText: rawText },
+      reply: `Could not complete that command: ${msg}. Ensure backend (5000) and vision service (8001) are running.`,
+      toast: { type: 'error', message: msg },
+    };
+  }
+}
+=======
     console.error('[Voice] Error executing NLP command:', error);
     return {
       parsed: { intent: 'unknown', rawText: rawText },
@@ -641,3 +838,4 @@ export async function executeNLPCommand(rawText: string): Promise<CommandResult>
   }
 }
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6

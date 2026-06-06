@@ -24,10 +24,13 @@ export function TaskHistory() {
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState('All');
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
   const filteredHistory = taskHistory.filter((task) =>
   statusFilter === 'All' ? true : task.status === statusFilter
   );
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   const [dateFilter, setDateFilter] = useState(new Date().toISOString().split('T')[0]);
   const [taskTypeFilter, setTaskTypeFilter] = useState('All Types');
   
@@ -54,7 +57,10 @@ export function TaskHistory() {
     
     return matchesStatus && matchesDate && matchesTaskType;
   });
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   const successCount = taskHistory.filter((t) => t.status === 'Success').length;
   const failCount = taskHistory.length - successCount;
   const successRate = Math.round(successCount / taskHistory.length * 100);
@@ -86,7 +92,11 @@ export function TaskHistory() {
       </div>
 
       {/* Top Section: Filters & Stats */}
+<<<<<<< HEAD
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+=======
       <div className="grid grid-cols-1 gap-6">
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
         <Card className="flex flex-col justify-center">
           <div className="flex flex-wrap gap-4 items-end">
             <div className="flex-1 min-w-[200px]">
@@ -95,11 +105,16 @@ export function TaskHistory() {
                 type="date"
                 icon={<Calendar size={18} />}
 <<<<<<< HEAD
+                value={dateFilter}
+                onChange={(e) => setDateFilter(e.target.value)} />
+=======
+<<<<<<< HEAD
                 defaultValue={new Date().toISOString().split('T')[0]} />
 =======
                 value={dateFilter}
                 onChange={(e) => setDateFilter(e.target.value)} />
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
               
             </div>
             <div className="flex-1 min-w-[150px]">
@@ -121,13 +136,19 @@ export function TaskHistory() {
                 Task Type
               </label>
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
               <select className="w-full bg-surface border border-border rounded-lg px-4 py-2.5 text-text-primary focus:outline-none focus:ring-2 focus:ring-primary">
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
               <select 
                 className="w-full bg-surface border border-border rounded-lg px-4 py-2.5 text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
                 value={taskTypeFilter}
                 onChange={(e) => setTaskTypeFilter(e.target.value)}>
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
                 <option>All Types</option>
                 <option>Place</option>
                 <option>Retrieve</option>
@@ -138,6 +159,46 @@ export function TaskHistory() {
             </Button>
           </div>
         </Card>
+<<<<<<< HEAD
+        
+        {/* Pie Chart Card */}
+        <Card className="flex flex-col">
+          <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wider mb-4 text-center">
+            Task Success Rate ({successRate || 0}%)
+          </h3>
+          <div className="flex-1 min-h-[200px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={pieData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={80}
+                  paddingAngle={5}
+                  dataKey="value"
+                  stroke="none"
+                >
+                  {pieData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="flex justify-center gap-6 mt-4">
+            <div className="flex items-center gap-2 text-sm text-text-secondary">
+              <span className="w-3 h-3 rounded-full bg-status-success"></span>
+              Success ({successCount})
+            </div>
+            <div className="flex items-center gap-2 text-sm text-text-secondary">
+              <span className="w-3 h-3 rounded-full bg-status-danger"></span>
+              Failed ({failCount})
+            </div>
+          </div>
+        </Card>
+=======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
       </div>
 
       {/* Main Table */}

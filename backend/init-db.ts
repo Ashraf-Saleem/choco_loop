@@ -19,7 +19,14 @@ async function initDb() {
   console.log("Connected to MySQL server.");
 
   // Run schema (creates DB + tables)
+<<<<<<< HEAD
+  // For ES modules or depending on how it's run, __dirname might not be available
+  // Let's use process.cwd() or similar, but since we are running with tsx it might work
+  // In TS we can just use process.cwd() assuming we run from backend dir
+  const schemaPath = path.join(process.cwd(), "schema.sql");
+=======
   const schemaPath = path.join(__dirname, "schema.sql");
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   const schemaSql = await fs.readFile(schemaPath, "utf8");
   await connection.query(schemaSql);
   console.log("Schema created successfully.");
@@ -29,15 +36,23 @@ async function initDb() {
   const adminHash = await bcrypt.hash("admin123", 10);
   const operatorHash = await bcrypt.hash("operator123", 10);
 =======
+<<<<<<< HEAD
+  const adminHash = await bcrypt.hash("admin123", 10);
+  const operatorHash = await bcrypt.hash("operator123", 10);
+=======
   const staffHash = await bcrypt.hash("staff123", 10);
   const supervisorHash = await bcrypt.hash("supervisor123", 10);
   const maintenanceHash = await bcrypt.hash("maintenance123", 10);
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 
   // Switch to the database
   await connection.query("USE chocolate_warehouse_db");
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   // Insert users with real password hashes
   await connection.query(
     `INSERT IGNORE INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)`,
@@ -49,6 +64,8 @@ async function initDb() {
   );
   console.log("Users seeded (admin@chocoloop.com / admin123).");
 
+<<<<<<< HEAD
+=======
   // Seed inventory items (quantities start at 0)
   await connection.query(
     `INSERT IGNORE INTO inventory_items (name, sku, category, quantity, capacity, location, status) VALUES
@@ -73,6 +90,7 @@ async function initDb() {
   );
   console.log("Users seeded (staff@choco.com / staff123, supervisor@choco.com / supervisor123, maintenance@choco.com / maintenance123).");
 
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   // Seed inventory items ONLY if they don't exist yet (preserves existing quantities)
   await connection.query(
     `INSERT INTO inventory_items (name, sku, category, quantity, capacity, location, status) VALUES
@@ -82,7 +100,10 @@ async function initDb() {
      ON DUPLICATE KEY UPDATE sku=sku`
   );
   console.log("Inventory items preserved (existing quantities kept).");
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 
   // Seed robot
   await connection.query(

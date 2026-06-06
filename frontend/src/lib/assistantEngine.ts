@@ -1,14 +1,21 @@
 import { API_BASE, getAuthHeaders } from './api';
 <<<<<<< HEAD
+import { executeVoiceCommand, executeNLPCommand } from './commandParser';
+=======
+<<<<<<< HEAD
 import { executeVoiceCommand, parseCommandIntent } from './commandParser';
 =======
 import { executeVoiceCommand, parseCommandIntent, executeNLPCommand } from './commandParser';
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 import { 
   processNLP, 
   generateChatbotResponse,
   type Product
 } from './nlpEngine';
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 
 export interface AssistantReply {
   text: string;
@@ -20,6 +27,9 @@ export async function getAssistantReply(rawInput: string): Promise<AssistantRepl
   const input = rawInput.toLowerCase().trim();
 
   try {
+<<<<<<< HEAD
+    // 1. Check for specific detailed queries first (legacy rich responses)
+=======
 <<<<<<< HEAD
     const voiceIntents = [
       'pick',
@@ -44,6 +54,7 @@ export async function getAssistantReply(rawInput: string): Promise<AssistantRepl
       return { text: result.reply };
     }
 
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     if (
       /\b(low|out of|running out|restock|need.*stock)\b/.test(input) &&
       /\b(stock|inventory)\b/.test(input)
@@ -89,14 +100,22 @@ export async function getAssistantReply(rawInput: string): Promise<AssistantRepl
       const latest = throughputData[throughputData.length - 1];
       const peak = Math.max(...throughputData.map((d: any) => d.value));
       return {
+<<<<<<< HEAD
+        text: `Current throughput is ${latest?.value || 0} units/hr (as of ${latest?.time || 'now'}). Today's peak was ${peak} units/hr.`,
+=======
         text: `Current throughput is ${latest.value} units/hr (as of ${latest.time}). Today's peak was ${peak} units/hr.`,
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
       };
     }
 
     if (
       /\b(health|status|online|vision service|database|mysql|esp32|hardware|service)\b/.test(
         input
+<<<<<<< HEAD
+      ) && !/\brobot\b/.test(input)
+=======
       )
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     ) {
       const res = await fetch(`${API_BASE}/dashboard/summary`);
       const { systemHealth } = await res.json();
@@ -106,6 +125,23 @@ export async function getAssistantReply(rawInput: string): Promise<AssistantRepl
       return { text: `System health:\n${summary}` };
     }
 
+<<<<<<< HEAD
+    if (/\b(hello|hi|hey)\b/.test(input) && input.length < 15) {
+      return {
+        text: `Hi! I'm the Cacao Assistant. Ask about stock, today's summary, active tasks, throughput, or system health — or say warehouse commands like "Start the conveyor", "Camera on", or "Retrieve 10 dark chocolate".`,
+      };
+    }
+
+    // 2. Process via NLP engine for actionable commands
+    let inventoryData: any[] = [];
+    try {
+      const inventoryRes = await fetch(`${API_BASE}/inventory`);
+      inventoryData = await inventoryRes.json();
+    } catch (e) {
+      console.warn('Inventory fetch failed, proceeding without products', e);
+    }
+    
+=======
     if (/\b(hello|hi|hey|help)\b/.test(input) || input.includes('what can you')) {
       return {
         text: `Hi! I'm the Cacao Assistant. Ask about stock, today's summary, active tasks, throughput, or system health — or say warehouse commands like "Start the conveyor" or "Queue pick 10 dark chocolate".`,
@@ -135,6 +171,7 @@ export async function getAssistantReply(rawInput: string): Promise<AssistantRepl
     // Fetch inventory data for NLP processing
     const inventoryRes = await fetch(`${API_BASE}/inventory`);
     const inventoryData = await inventoryRes.json();
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     const products: Product[] = inventoryData.map((item: any) => ({
       id: item.id || item.sku,
       name: item.name,
@@ -143,6 +180,14 @@ export async function getAssistantReply(rawInput: string): Promise<AssistantRepl
       sku: item.sku,
     }));
 
+<<<<<<< HEAD
+    const nlpResult = processNLP(rawInput, products);
+
+    if (nlpResult.intent !== 'UNKNOWN' && nlpResult.suggestedAction) {
+      switch (nlpResult.suggestedAction.type) {
+        case 'CREATE_TASK':
+        case 'HARDWARE_CMD': {
+=======
     // Process input through NLP engine
     const nlpResult = processNLP(rawInput, products);
 
@@ -150,6 +195,7 @@ export async function getAssistantReply(rawInput: string): Promise<AssistantRepl
     if (nlpResult.suggestedAction) {
       switch (nlpResult.suggestedAction.type) {
         case 'CREATE_TASK': {
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
           const result = await executeNLPCommand(rawInput);
           return { text: result.reply };
         }
@@ -168,8 +214,12 @@ export async function getAssistantReply(rawInput: string): Promise<AssistantRepl
               text: `${nlpResult.entities.product} not found in inventory.`,
             };
           }
+<<<<<<< HEAD
+          // fallback general check
+=======
 
           // General inventory check
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
           const low = inventoryData.filter((i: any) => lowStockStatuses.includes(i.status));
           if (low.length === 0) {
             return {
@@ -184,7 +234,10 @@ export async function getAssistantReply(rawInput: string): Promise<AssistantRepl
           };
         }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
         case 'SHOW_TASKS': {
           try {
             const tasksRes = await fetch(`${API_BASE}/tasks/active`);
@@ -199,6 +252,13 @@ export async function getAssistantReply(rawInput: string): Promise<AssistantRepl
           }
         }
 
+<<<<<<< HEAD
+        case 'SHOW_ROBOTS': {
+          return { text: 'Robot is currently idle and ready for tasks.' };
+        }
+
+=======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
         case 'HELP': {
           return {
             text: generateChatbotResponse(nlpResult),
@@ -207,6 +267,28 @@ export async function getAssistantReply(rawInput: string): Promise<AssistantRepl
       }
     }
 
+<<<<<<< HEAD
+    // 3. Fallback to OpenRouter LLM if no NLP action matched
+    try {
+      const aiRes = await fetch(`${API_BASE}/assistant/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
+        body: JSON.stringify({ message: rawInput }),
+      });
+      const aiData = await aiRes.json();
+      if (aiData.success && aiData.text) return { text: aiData.text };
+    } catch (_e) {
+      console.error('AI fallback error:', _e);
+    }
+
+    return {
+      text: `I'm not sure about that. Try "What's low on stock?", "Show active tasks", "System status", or "Retrieve 10 milk chocolate".`,
+    };
+  } catch (error) {
+    console.error('Assistant Engine Error:', error);
+    return {
+      text: 'I encountered an issue processing your request. Please ensure the backend is running on port 5000.',
+=======
     // Fallback response if no NLP action matched
     return {
       text: generateChatbotResponse(nlpResult),
@@ -216,11 +298,20 @@ export async function getAssistantReply(rawInput: string): Promise<AssistantRepl
     return {
       text: 'I encountered an issue processing your request. Please ensure the backend is running on port 5000.',
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
     };
   }
 }
 
 export const suggestedQuestions = [
+<<<<<<< HEAD
+  "Store 5 milk chocolates",
+  'Retrieve 10 dark chocolates',
+  'Show inventory',
+  'Camera on',
+  "Today's analytics",
+];
+=======
 <<<<<<< HEAD
   "What's low on stock?",
   'Show active tasks',
@@ -237,3 +328,4 @@ export const suggestedQuestions = [
 ];
 
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6

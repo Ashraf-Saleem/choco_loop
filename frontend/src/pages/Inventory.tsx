@@ -3,10 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
 <<<<<<< HEAD
+import { Search, Filter, Download, Plus, AlertTriangle, X, Check } from 'lucide-react';
+=======
+<<<<<<< HEAD
 import { Search, Filter, Download, Plus, AlertTriangle, X } from 'lucide-react';
 =======
 import { Search, Filter, Download, Plus, AlertTriangle, X, Check } from 'lucide-react';
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 import {
   PieChart,
   Pie,
@@ -21,21 +25,29 @@ import { Input } from '../components/ui/Input';
 import { StatusPill } from '../components/ui/StatusPill';
 import { useInventory, useDashboardSummary } from '../lib/useApi';
 <<<<<<< HEAD
+import { API_BASE } from '../lib/api';
+
+=======
+<<<<<<< HEAD
 =======
 import { API_BASE } from '../lib/api';
 
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 export function Inventory() {
   const navigate = useNavigate();
   const { inventoryData, loading } = useInventory();
   const { inventoryDistribution } = useDashboardSummary();
   const [searchTerm, setSearchTerm] = useState('');
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   
   if (loading) return <div>Loading...</div>;
   // Summary Stats
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
@@ -66,7 +78,10 @@ export function Inventory() {
   });
   
   // Summary Stats (calculated from ALL data, not filtered)
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   const totalSKUs = inventoryData.length;
   const inStock = inventoryData.filter((i) => i.status === 'In Stock').length;
   const lowStock = inventoryData.filter((i) => i.status === 'Low Stock').length;
@@ -74,10 +89,13 @@ export function Inventory() {
     (i) => i.status === 'Out of Stock'
   ).length;
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
   const lowStockItems = inventoryData.filter(
     (i) => i.status === 'Low Stock' || i.status === 'Out of Stock'
   );
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
   const lowStockItems = filteredInventoryData.filter(
     (i) => i.status === 'Low Stock' || i.status === 'Out of Stock'
   );
@@ -118,7 +136,10 @@ export function Inventory() {
       setIsAddingProduct(false);
     }
   };
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
 
   const handleExport = () => {
     if (!inventoryData || inventoryData.length === 0) return;
@@ -234,10 +255,13 @@ export function Inventory() {
                 
               </div>
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
               <Button variant="outline" className="flex gap-2 w-full sm:w-auto">
                 <Filter size={18} /> Category
               </Button>
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
               <div className="relative">
                 <Button 
                   variant="outline" 
@@ -276,7 +300,10 @@ export function Inventory() {
                   </div>
                 )}
               </div>
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
             </div>
 
             <div className="overflow-x-auto">
@@ -291,6 +318,8 @@ export function Inventory() {
                   </tr>
                 </thead>
                 <tbody>
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
                   {inventoryData.map((item, index) => {
                     const stockPercent = item.stock / item.capacity * 100;
@@ -353,6 +382,7 @@ export function Inventory() {
 
                   })}
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
                   {filteredInventoryData.length > 0 ? (
                     filteredInventoryData.map((item, index) => {
                       const stockPercent = item.stock / item.capacity * 100;
@@ -421,7 +451,10 @@ export function Inventory() {
                       </td>
                     </tr>
                   )}
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
                 </tbody>
               </table>
             </div>
@@ -529,6 +562,8 @@ export function Inventory() {
             </div>
             <div className="p-4 space-y-4">
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
               <Input label="Product Name" placeholder="e.g. Milk Chocolate" />
               <div className="grid grid-cols-2 gap-4">
                 <Input label="SKU" placeholder="e.g. CHOC-01" />
@@ -550,6 +585,7 @@ export function Inventory() {
                 }}>
                 Save Product
 =======
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-1.5">Product Name *</label>
                 <input
@@ -622,7 +658,10 @@ export function Inventory() {
                 onClick={handleAddProduct}
                 disabled={isAddingProduct}>
                 {isAddingProduct ? 'Saving...' : 'Save Product'}
+<<<<<<< HEAD
+=======
 >>>>>>> fix-camera
+>>>>>>> 6a0304bb03f877fde527fa11a075f5024efd09c6
               </Button>
             </div>
           </motion.div>
